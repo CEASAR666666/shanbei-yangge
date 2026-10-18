@@ -9,9 +9,9 @@ const state = {
 };
 
 const countyData = {
-  suid: { no: '01', tag: '陕北东南 · 河谷', name: '绥德', intro: '绥德是陕北秧歌的重要传播地之一。县城与乡村的节庆秧歌，常见鼓乐开道、队伍巡游和伞头领队等组织方式。', look: '队形与伞头', hear: '鼓点与唢呐', carry: '彩扇、红绸' },
+  suid: { no: '01', tag: '陕北东南 · 河谷', name: '绥德', intro: '绥德是陕北秧歌的重要传播地之一。县城与乡村的节庆秧歌，常见鼓乐开道、队伍巡游和伞头领队等组织方式。', look: '北路 / 南路', hear: '文场子与武场子', carry: '彩扇、红绸', detail: '绥德秧歌资料将其概括为北路文场子与南路武场子：北路以闪、颠、柔、俏见长，南路融入弓步、踢腿和跳跃，动作更外放。' },
   mizhi: { no: '02', tag: '无定河畔 · 米脂', name: '米脂', intro: '米脂的秧歌活动与春节社火、村落巡游相连。彩扇、手绢等轻道具让舞者的手腕轨迹更鲜明，队伍也更适合在街巷中展开。', look: '扇面与走阵', hear: '鼓乐与唱腔', carry: '彩扇、手绢' },
-  dingbian: { no: '03', tag: '陕北西部 · 定边', name: '定边', intro: '定边地处陕北西部，节庆秧歌常与社火、民歌等地方年俗同场出现。边地空间开阔，队列行进与对舞尤其醒目。', look: '行进与对舞', hear: '锣鼓与唢呐', carry: '彩绸、腰鼓' }
+  dingbian: { no: '03', tag: '陕北西部 · 定边', name: '定边', intro: '定边地处陕北西部，节庆秧歌常与社火、民歌等地方年俗同场出现。边地空间开阔，队列行进与对舞尤其醒目。', look: '霸王鞭方阵', hear: '铜铃与锣鼓', carry: '彩鞭、彩绸', detail: '定边霸王鞭俗称“浑身响”，以鞭身击打肩、臂、腰、腿，铜铃声与鼓点交织；大型方阵还会和旱船等社火节目一起定点行进。' }
 };
 
 const compareData = {
@@ -64,11 +64,13 @@ $$('.quiz-options button').forEach(btn => btn.addEventListener('click', () => { 
 $$('[data-vote]').forEach(btn => btn.addEventListener('click', () => { $$('.vote-options button').forEach(b => b.classList.remove('is-voted')); btn.classList.add('is-voted'); playClick(); }));
 $('#shareMood').addEventListener('click', () => openModal('<p class="kicker">YOUR YANGGE MOOD</p><h2>你的秧歌气质：红绸型</h2><p>热烈、开阔、愿意在人群里把节奏传出去。分享图功能在下一版接入真实图片生成与保存。</p><div class="modal-meta"><span>红绸入陕北 · 初版</span><button class="btn btn-red" onclick="closeModal()">知道了</button></div>'));
 
-function renderCounty(key) { const d = countyData[key]; state.county = key; $('#countyNo').textContent = d.no; $('#countyTag').textContent = d.tag; $('#countyName').textContent = d.name; $('#countyIntro').textContent = d.intro; $('#countyLook').textContent = d.look; $('#countyHear').textContent = d.hear; $('#countyCarry').textContent = d.carry; $('#lightCounty').innerHTML = `${state.lit.includes(key) ? '已点亮' : `点亮${d.name}`} <span>✦</span>`; $$('.map-pin').forEach(pin => pin.classList.toggle('is-lit', state.lit.includes(pin.dataset.county))); playClick(); }
+function renderCounty(key) { const d = countyData[key]; state.county = key; $('#countyNo').textContent = d.no; $('#countyTag').textContent = d.tag; $('#countyName').textContent = d.name; $('#countyIntro').textContent = d.intro; $('#countyLook').textContent = d.look; $('#countyHear').textContent = d.hear; $('#countyCarry').textContent = d.carry; $('#countyDetail').textContent = d.detail || '地方活动与节庆秧歌资料正在持续补充，欢迎结合地方馆校公开资料继续完善。'; $('#lightCounty').innerHTML = `${state.lit.includes(key) ? '已点亮' : `点亮${d.name}`} <span>✦</span>`; $$('.map-pin').forEach(pin => pin.classList.toggle('is-lit', state.lit.includes(pin.dataset.county))); playClick(); }
 $$('.map-pin').forEach(pin => pin.addEventListener('click', () => renderCounty(pin.dataset.county)));
 $('#lightCounty').addEventListener('click', () => { if (!state.lit.includes(state.county)) state.lit.push(state.county); localStorage.setItem('yangge-lit', JSON.stringify(state.lit)); renderCounty(state.county); openModal(`<p class="kicker">FIELD NOTE · ${countyData[state.county].name}</p><h2>县域已点亮</h2><p>你在地图上留下了一个红色印章。再点亮 ${3 - state.lit.length} 个县域，完成“陕北行走者”。</p><div class="tribute-number">${state.lit.length}<small style="font-size:16px;color:#9e877b"> / 3</small></div>`); });
 $('#markAll').addEventListener('click', () => { state.lit = ['suid','mizhi','dingbian']; localStorage.setItem('yangge-lit', JSON.stringify(state.lit)); renderCounty('suid'); openModal('<p class="kicker">ACHIEVEMENT UNLOCKED</p><h2>陕北行走者</h2><p>绥德、米脂、定边三枚地图印章已集齐。下一步可以把县域故事交给真实的地方资料来继续完善。</p><div class="tribute-number">✦</div>'); });
 $$('[data-artifact]').forEach(btn => btn.addEventListener('click', () => { playClick('drum'); openModal(`<p class="kicker">道具图鉴</p><h2>${btn.dataset.artifact}</h2><p>${btn.dataset.artifact === '腰鼓' ? '腰鼓以鼓槌击奏，鼓点通常与队形、步伐和情绪推进同步。页面中的声音为轻量交互提示，不代替田野录音。' : '彩扇是秧歌中常见的视觉道具，扇面的开合与腕部轨迹能放大舞者的节奏。正式资料建议补充地方队伍的实拍与访谈。'}</p><div class="modal-meta"><span>互动提示音已播放</span><button class="btn btn-red" onclick="closeModal()">收起</button></div>`); }));
+
+$$('[data-regional]').forEach(btn => btn.addEventListener('click', () => { const key = btn.dataset.regional; renderCounty(key); document.querySelector('#atlas')?.scrollIntoView({ behavior: 'smooth' }); playClick('drum'); }));
 
 $('#tributeBtn').addEventListener('click', () => { playClick(); openModal('<p class="kicker">TRIBUTE · 致敬传承人</p><h2>谢谢你，把鼓点留在村口</h2><p>每一次学习、排练与带队，都是让秧歌继续活着的动作。</p><div class="tribute-number">+1<small style="font-size:16px;color:#9e877b"> 致敬</small></div>'); });
 $('#commentBtn').addEventListener('click', () => openModal('<p class="kicker">LEAVE A NOTE</p><h2>写一句祝福</h2><textarea id="noteInput" rows="4" placeholder="例如：愿鼓点一直响到下一代……" style="width:100%;margin-top:15px;padding:13px;border:1px solid #e8ded4;border-radius:9px;background:#fff;resize:vertical;font:inherit"></textarea><div class="modal-meta"><span>仅保存在本机</span><button class="btn btn-red" id="saveNote" type="button">保存祝福</button></div>'));

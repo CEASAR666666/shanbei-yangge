@@ -163,14 +163,35 @@
         <div class="atlas-layout">
           <div class="map-card">
             <div class="map-lines"></div>
-            <div class="map-label yulin">榆林</div><button class="map-pin pin-sd" data-county="suid" type="button"><i></i><span>绥德</span></button><button class="map-pin pin-mz" data-county="mizhi" type="button"><i></i><span>米脂</span></button><button class="map-pin pin-db" data-county="dingbian" type="button"><i></i><span>定边</span></button>
+            <div class="map-label yulin">榆林</div><div class="map-feature-badge">地方特色秧歌</div><button class="map-pin pin-sd" data-county="suid" type="button" aria-label="查看绥德地方特色秧歌"><i></i><span>绥德</span><em>两路秧歌</em></button><button class="map-pin pin-mz" data-county="mizhi" type="button" aria-label="查看米脂地方特色秧歌"><i></i><span>米脂</span></button><button class="map-pin pin-db" data-county="dingbian" type="button" aria-label="查看定边地方特色秧歌"><i></i><span>定边</span><em>霸王鞭</em></button>
             <div class="map-legend"><span><i class="pin-dot active"></i>已点亮</span><span><i class="pin-dot"></i>未点亮</span></div>
           </div>
           <div class="county-panel" id="countyPanel">
             <div class="county-kicker"><span id="countyNo">01</span><span id="countyTag">陕北东南 · 河谷</span></div>
             <h3 id="countyName">绥德</h3><p id="countyIntro">绥德是陕北秧歌的重要传播地之一。县城与乡村的节庆秧歌，常见鼓乐开道、队伍巡游和伞头领队等组织方式。</p>
-            <div class="county-grid"><div><span>看什么</span><b id="countyLook">队形与伞头</b></div><div><span>听什么</span><b id="countyHear">鼓点与唢呐</b></div><div><span>带什么</span><b id="countyCarry">彩扇、红绸</b></div></div>
+            <div class="county-grid"><div><span>看什么</span><b id="countyLook">队形与伞头</b></div><div><span>听什么</span><b id="countyHear">鼓点与唢呐</b></div><div><span>带什么</span><b id="countyCarry">彩扇、红绸</b></div></div><div class="county-detail"><span>地方特色秧歌</span><p id="countyDetail">北路文场子与南路武场子并存，分别呈现细腻灵动与刚劲外放的风格。</p></div>
             <button class="btn btn-outline" id="lightCounty" type="button">点亮绥德 <span>✦</span></button>
+          </div>
+        </div>
+        <div class="regional-yangge" id="regionalYangge">
+          <div class="regional-head"><div><p class="kicker">LOCAL YANGGE · 地方特色秧歌</p><h3>把地图上的两个地方，跳出自己的性格</h3></div><span>绥德 / 定边 · 新增资料板块</span></div>
+          <div class="regional-grid">
+            <article class="regional-card regional-sd">
+              <div class="regional-card-top"><span class="regional-place">绥德</span><span class="tag red">两大流派</span></div>
+              <h4>北路文场子 · 南路武场子</h4>
+              <p>北路以二人场子为核心，身法细腻、节奏流畅；南路动作大开大合，重拍突出，适合广场巡游和闹红火。</p>
+              <div class="regional-facts"><span><b>北路</b>闪、颠、柔、俏</span><span><b>南路</b>弓步、踢腿、跳跃</span><span><b>场景</b>近距离小场 / 大场巡游</span></div>
+              <button class="regional-link" data-regional="suid" type="button">在地图上查看绥德 ↗</button>
+              <small class="regional-source">资料依据：所附《绥德秧歌资料》；实名与流派细节建议上线前由地方馆校核验。</small>
+            </article>
+            <article class="regional-card regional-db">
+              <div class="regional-card-top"><span class="regional-place">定边</span><span class="tag gold">浑身响</span></div>
+              <h4>霸王鞭 · 百人方阵 · 旱船社火</h4>
+              <p>定边霸王鞭以鞭身击打和铜铃声见长，鼓点铿锵、动作有力；社火队伍还常配合旱船、说书、秦腔和皮影等节目。</p>
+              <div class="regional-facts"><span><b>动作</b>击肩、击臂、击腰、击腿</span><span><b>节奏</b>铜铃与锣鼓交织</span><span><b>场景</b>定点行进 / 方阵变换</span></div>
+              <button class="regional-link" data-regional="dingbian" type="button">在地图上查看定边 ↗</button>
+              <small class="regional-source">资料依据：所附《定边社火》；人物与历史说法建议上线前由地方馆校核验。</small>
+            </article>
           </div>
         </div>
         <div class="artifact-grid">
