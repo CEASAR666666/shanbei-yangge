@@ -143,8 +143,7 @@ document.addEventListener('click',e=>{ if(e.target.id==='switchDevice'){closeMod
 
 // 音乐房：公开授权素材 + 本地鼓点提示，浏览器拦截自动播放时给出入场提示
 const musicTracks = [
-  {title:'中国声乐与器乐合奏 · 入场版',type:'民俗合奏 · 本地循环',src:'assets/audio/chinese-ensemble.ogg',author:'Wikimedia Commons / 公开音频',license:'请以原始页面授权说明为准',source:'https://commons.wikimedia.org/wiki/File:Chinese_Vocal_and_Instrumental_Ensemble.ogg'},
-  {title:'中国声乐与器乐合奏 · 夜行版',type:'民俗合奏 · 本地循环',src:'assets/audio/chinese-ensemble.ogg',author:'Wikimedia Commons / 公开音频',license:'请以原始页面授权说明为准',source:'https://commons.wikimedia.org/wiki/File:Chinese_Vocal_and_Instrumental_Ensemble.ogg'}
+  {title:'中国声乐与器乐合奏',type:'中国民乐 · 本地循环',src:'assets/audio/chinese-ensemble.ogg',author:'Wikimedia Commons 文件页',license:'授权信息以原始文件页为准',source:'https://commons.wikimedia.org/wiki/File:Chinese_Vocal_and_Instrumental_Ensemble.ogg'}
 ];
 let musicIndex=Math.floor(Math.random()*musicTracks.length), musicAudio=null, musicPlaying=false;
 function getTrack(){return musicTracks[musicIndex]}
