@@ -31,6 +31,7 @@ const archives={
 const key=new URLSearchParams(location.search).get('county')||'suid';
 const data=archives[key]||archives.suid;
 const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
 document.title=data.name+' · 红绸入陕北';
 $('#archiveKicker').textContent='LOCAL ARCHIVE · '+data.no;
 $('#archiveTitle').textContent=data.name;
@@ -43,4 +44,9 @@ $('#archiveFacts').innerHTML=data.facts.map(([title,body])=>'<article class="arc
 $('#archiveSource').textContent=data.source;
 $('#archiveGallery').innerHTML=data.images.map((img,i)=>'<figure><img src="assets/img/'+data.folder+'/'+img+'" alt="'+data.name+'资料图片 '+(i+1)+'" loading="lazy"><figcaption>'+data.name+' · 资料图片 '+String(i+1).padStart(2,'0')+'</figcaption></figure>').join('');
 function showBlessing(text){const layer=$('#archiveBlessing');const item=document.createElement('span');item.className='archive-blessing-item';item.textContent='✦ '+text;item.style.setProperty('--top',(18+Math.round(Math.random()*65))+'%');layer.appendChild(item);setTimeout(()=>item.remove(),11200);}
-$('#archiveBless').addEventListener('click',()=>{const value=window.prompt('写一句给秧歌和传承人的祝福：','愿鼓点一直响到下一代……');if(value&&value.trim()){localStorage.setItem('yangge-note',value.trim());showBlessing(value.trim());}});
+const noteModal=$('#archiveBlessModal');
+const closeNote=()=>{noteModal.classList.remove('is-open');noteModal.setAttribute('aria-hidden','true');};
+$('#archiveBless').addEventListener('click',()=>{noteModal.classList.add('is-open');noteModal.setAttribute('aria-hidden','false');$('#archiveBlessInput').focus();});
+$$('[data-close-archive-note]').forEach(el=>el.addEventListener('click',closeNote));
+$('#archiveBlessSave').addEventListener('click',()=>{const value=$('#archiveBlessInput').value.trim();if(!value)return;localStorage.setItem('yangge-note',value);showBlessing(value);$('#archiveBlessInput').value='';closeNote();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeNote();});

@@ -46,6 +46,16 @@
   </main>
   <footer class="archive-footer"><span>红绸入陕北 · 地方档案</span><a href="index.html">回到首页 ↗</a></footer>
   <div class="archive-blessing" id="archiveBlessing" aria-live="polite"></div>
+  <div class="archive-note-modal" id="archiveBlessModal" aria-hidden="true">
+    <div class="archive-note-backdrop" data-close-archive-note></div>
+    <section class="archive-note-card" role="dialog" aria-modal="true" aria-labelledby="archiveNoteTitle">
+      <button class="archive-note-close" type="button" data-close-archive-note aria-label="关闭">×</button>
+      <p class="archive-kicker">LEAVE A BLESSING</p>
+      <h2 id="archiveNoteTitle">写一句给秧歌的祝福</h2>
+      <textarea id="archiveBlessInput" rows="4" maxlength="80" placeholder="例如：愿鼓点一直响到下一代……"></textarea>
+      <div class="archive-note-actions"><span>只保存在本机 · 保存后会飘过页面</span><button class="archive-button archive-button-gold" id="archiveBlessSave" type="button">飘出祝福</button></div>
+    </section>
+  </div>
   <script src="archive.js?v=20261019archive"></script>
 </body>
 </html>
