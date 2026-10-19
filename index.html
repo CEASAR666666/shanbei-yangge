@@ -108,6 +108,7 @@
         <div>
           <p class="kicker">A LIVING TRADITION</p>
           <h2>先听见鼓点，<br>再看见秧歌。</h2>
+          <div class="intro-art" aria-hidden="true"><div class="intro-art-sun">秧</div><span>身体 · 集体 · 文化</span><i></i><b>黄土高原的红绸<br>从村口一直舞到今天</b></div>
         </div>
         <div class="intro-text">
           <p class="lead">秧歌不是“摆给人看”的一套动作，而是一种集体参与的节庆秩序——这恰好回应了今天高校美育缺的三样东西。</p>
@@ -168,26 +169,26 @@
       <div class="container">
         <div class="section-head">
           <div><p class="kicker">THE PEOPLE WHO KEEP IT MOVING</p><h2>传承人 · 把鼓点交给下一代</h2></div>
-          <a href="#legacy-detail" class="text-link">查看人物档案 ↗</a>
+          <a href="archive.html?county=suid" class="text-link">查看人物档案 ↗</a>
         </div>
         <div class="people-row">
           <article class="person-card featured-person" data-person="绥德秧歌传习者">
             <div class="person-image person-one"></div>
             <div class="person-meta"><span class="tag red">陕北秧歌</span><button class="follow" type="button" aria-label="关注绥德秧歌传习者">♡</button></div>
             <h3>绥德秧歌传习者</h3><p>绥德秧歌 · 伞头与鼓乐记忆</p>
-            <div class="card-arrow">进入人物档案 <span>↗</span></div>
+            <a class="card-arrow" href="archive.html?county=suid">进入人物档案 <span>↗</span></a>
           </article>
           <article class="person-card" data-person="米脂秧歌队">
             <div class="person-image person-two"></div>
             <div class="person-meta"><span class="tag gold">米脂</span><button class="follow" type="button" aria-label="关注米脂秧歌队">♡</button></div>
             <h3>米脂秧歌队</h3><p>鼓乐、彩扇与村落巡游</p>
-            <div class="card-arrow">查看队伍 <span>↗</span></div>
+            <a class="card-arrow" href="archive.html?county=mizhi">查看队伍 <span>↗</span></a>
           </article>
           <article class="person-card" data-person="定边社火班">
             <div class="person-image person-three"></div>
             <div class="person-meta"><span class="tag ink">定边</span><button class="follow" type="button" aria-label="关注定边社火班">♡</button></div>
             <h3>定边社火班</h3><p>边地节庆里的秧歌与社火</p>
-            <div class="card-arrow">查看队伍 <span>↗</span></div>
+            <a class="card-arrow" href="archive.html?county=dingbian">查看队伍 <span>↗</span></a>
           </article>
         </div>
       </div>
@@ -302,6 +303,7 @@
   <button class="assistant-orb" id="assistantOrb" type="button" aria-label="打开秧小北助手"><span class="orb-face">秧</span><i class="orb-scarf"></i><small>秧小北</small></button>
   <aside class="assistant-panel" id="assistantPanel" aria-hidden="true"><div class="assistant-head"><div class="assistant-avatar"><span>秧</span></div><div><b>秧小北</b><small>你的陕北秧歌向导</small></div><button id="assistantClose" type="button">×</button></div><div class="assistant-motion" id="assistantMotion"><span class="motion-scarf"></span><span class="motion-body">秧</span></div><div class="chat-log" id="chatLog"><div class="chat-msg bot">嗨！我是秧小北。可以问我陕北秧歌、陕北年俗，也可以让我带你去页面里逛逛。</div><div class="quick-chips"><button data-ask="陕北秧歌有什么特点？" type="button">秧歌有什么特点？</button><button data-ask="带我去音乐房" type="button">带我去音乐房</button><button data-ask="打开头像工坊" type="button">制作我的头像</button></div></div><div class="chat-compose"><button id="voiceBtn" type="button" title="语音输入">◉</button><input id="chatInput" placeholder="问问秧小北…" /><button id="chatSend" type="button">发送</button></div><button class="avatar-entry" id="avatarEntry" type="button">✦ 打开本地头像工坊</button></aside>
   <div class="avatar-panel" id="avatarPanel" aria-hidden="true"><div class="avatar-backdrop" data-close-avatar></div><div class="avatar-card"><button class="modal-close" data-close-avatar type="button">×</button><p class="kicker">LOCAL AVATAR STUDIO</p><h2>把你的脸，放进陕北年画</h2><p class="avatar-note">照片只在本机处理。第一版采用本地模板合成，不上传服务器。</p><div class="avatar-workspace"><div class="avatar-preview" id="avatarPreview"><div class="template-burst"></div><div class="avatar-face-slot" id="avatarFaceSlot">上传照片</div><div class="template-costume" id="templateCostume">胖娃娃</div></div><div class="avatar-controls"><label class="upload-btn">选择照片<input type="file" id="avatarFile" accept="image/*" /></label><div class="template-grid"><button data-template="胖娃娃" type="button">喜庆胖娃娃</button><button data-template="秧歌舞者" type="button">跳秧歌</button><button data-template="腰鼓小将" type="button">腰鼓小将</button><button data-template="剪纸秧歌娃" type="button">剪纸年画</button></div><button class="btn btn-red" id="downloadAvatar" type="button">下载头像 PNG ↗</button></div></div><p class="avatar-status" id="avatarStatus">支持 FaceDetector 的浏览器会优先识别面部；否则可在预览区调整裁剪。</p></div></div>
+  <div class="blessing-marquee" id="blessingMarquee" aria-live="polite" aria-label="祝福弹幕"></div>
   <script src="app.js?v=20261019docs"></script>
 </body>
 </html>

@@ -121,8 +121,9 @@ $('#markAll').addEventListener('click', () => { state.lit = ['suid','mizhi','din
 $$('[data-artifact]').forEach(btn => btn.addEventListener('click', () => { playClick('drum'); openModal(`<p class="kicker">道具图鉴</p><h2>${btn.dataset.artifact}</h2><p>${btn.dataset.artifact === '腰鼓' ? '腰鼓以鼓槌击奏，鼓点速度、力度与队形变化相互呼应。' : '彩扇是秧歌中常见的视觉道具，扇面的开合与腕部轨迹能放大舞者的节奏。'}</p><div class="modal-meta"><span>互动提示音已播放</span><button class="btn btn-red" onclick="closeModal()">收起</button></div>`); }));
 
 $('#tributeBtn').addEventListener('click', () => { playClick(); openModal('<p class="kicker">TRIBUTE · 致敬传承人</p><h2>谢谢你，把鼓点留在村口</h2><p>每一次学习、排练与带队，都是让秧歌继续活着的动作。</p><div class="tribute-number">+1<small style="font-size:16px;color:#9e877b"> 致敬</small></div>'); });
-$('#commentBtn').addEventListener('click', () => openModal('<p class="kicker">LEAVE A NOTE</p><h2>写一句祝福</h2><textarea id="noteInput" rows="4" placeholder="例如：愿鼓点一直响到下一代……" style="width:100%;margin-top:15px;padding:13px;border:1px solid #e8ded4;border-radius:9px;background:#fff;resize:vertical;font:inherit"></textarea><div class="modal-meta"><span>仅保存在本机</span><button class="btn btn-red" id="saveNote" type="button">保存祝福</button></div>'));
-document.addEventListener('click', e => { if (e.target.id === 'saveNote') { const v = $('#noteInput').value.trim(); if (v) { localStorage.setItem('yangge-note', v); e.target.textContent = '已保存'; playClick(); } } });
+function showBlessing(text){const layer=$('#blessingMarquee');if(!layer)return;const item=document.createElement('span');item.className='blessing-item';item.textContent=`✦ ${text}`;item.style.setProperty('--marquee-delay',`${Math.round(Math.random()*1.2)}s`);item.style.setProperty('--marquee-top',`${18+Math.round(Math.random()*62)}%`);layer.appendChild(item);setTimeout(()=>item.remove(),14500);}
+$('#commentBtn').addEventListener('click', () => openModal('<p class="kicker">LEAVE A NOTE</p><h2>写一句祝福</h2><textarea id="noteInput" rows="4" placeholder="例如：愿鼓点一直响到下一代……" style="width:100%;margin-top:15px;padding:13px;border:1px solid #e8ded4;border-radius:9px;background:#fff;resize:vertical;font:inherit"></textarea><div class="modal-meta"><span>仅保存在本机 · 保存后会飘过屏幕</span><button class="btn btn-red" id="saveNote" type="button">保存祝福</button></div>'));
+document.addEventListener('click', e => { if (e.target.id === 'saveNote') { const v = $('#noteInput').value.trim(); if (v) { localStorage.setItem('yangge-note', v); e.target.textContent = '已保存'; showBlessing(v); playClick(); } } });
 
 const sections = ['home','genes','legacy','compare','atlas','doc-gallery'];
 const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) $$(`[data-nav="${entry.target.id}"]`).forEach(a => a.classList.add('active')); else $$(`[data-nav="${entry.target.id}"]`).forEach(a => a.classList.remove('active')); }), { rootMargin: '-30% 0px -60% 0px' });
@@ -142,22 +143,17 @@ document.addEventListener('click',e=>{ if(e.target.id==='switchDevice'){closeMod
 
 // 音乐房：公开授权素材 + 本地鼓点提示，浏览器拦截自动播放时给出入场提示
 const musicTracks = [
-  {title:'中国声乐与器乐合奏',type:'中国民乐 · 公版',src:'assets/audio/chinese-ensemble.ogg',author:'Unknown author',license:'Public domain',source:'https://commons.wikimedia.org/wiki/File:Chinese_Vocal_and_Instrumental_Ensemble.ogg'},
-  {title:'陕北腰鼓节拍练习',type:'本地合成 · 交互试听',src:null,author:'红绸入陕北',license:'Prototype audio',source:'#musicRoom'},
-  {title:'秧歌走阵节拍练习',type:'本地合成 · 交互试听',src:null,author:'红绸入陕北',license:'Prototype audio',source:'#musicRoom'},
-  {title:'红绸入场提示',type:'本地合成 · 交互试听',src:null,author:'红绸入陕北',license:'Prototype audio',source:'#musicRoom'}
+  {title:'中国声乐与器乐合奏 · 入场版',type:'民俗合奏 · 本地循环',src:'assets/audio/chinese-ensemble.ogg',author:'Wikimedia Commons / 公开音频',license:'请以原始页面授权说明为准',source:'https://commons.wikimedia.org/wiki/File:Chinese_Vocal_and_Instrumental_Ensemble.ogg'},
+  {title:'中国声乐与器乐合奏 · 夜行版',type:'民俗合奏 · 本地循环',src:'assets/audio/chinese-ensemble.ogg',author:'Wikimedia Commons / 公开音频',license:'请以原始页面授权说明为准',source:'https://commons.wikimedia.org/wiki/File:Chinese_Vocal_and_Instrumental_Ensemble.ogg'}
 ];
-let musicIndex=Math.floor(Math.random()*musicTracks.length), musicAudio=null, musicPlaying=false, synthTimer=null;
+let musicIndex=Math.floor(Math.random()*musicTracks.length), musicAudio=null, musicPlaying=false;
 function getTrack(){return musicTracks[musicIndex]}
 function renderTracks(){const list=$('#trackList');if(!list)return;list.innerHTML=musicTracks.map((t,i)=>`<div class="track-row ${i===musicIndex?'is-current':''}"><span class="track-index">${String(i+1).padStart(2,'0')}</span><div><strong>${t.title}</strong><small>${t.type} · ${t.author}</small></div><div class="track-actions"><button data-track="${i}" type="button">${i===musicIndex?'播放中':'播放'}</button><a href="${t.source}" target="_blank" rel="noreferrer">来源</a></div></div>`).join(''); $$('#trackList [data-track]').forEach(b=>b.addEventListener('click',()=>{musicIndex=Number(b.dataset.track);loadMusic(true);}));}
-function synthPulse(){ if(!state.sound)return; playClick('drum'); }
-function stopSynth(){if(synthTimer){clearInterval(synthTimer);synthTimer=null;}}
-function startSynth(){stopSynth();synthPulse();synthTimer=setInterval(()=>synthPulse(),getTrack().title.includes('走阵')?540:720);musicPlaying=true;$('#dockPlay').textContent='Ⅱ';}
-function loadMusic(autoplay=false){const t=getTrack(); stopSynth(); if(musicAudio){musicAudio.pause();musicAudio=null;} $('#dockTitle').textContent=t.title;$('#dockMeta').textContent=`${t.type} · ${t.license}`;renderTracks();if(!t.src){musicPlaying=false;if(autoplay)startSynth();return;} musicAudio=new Audio(t.src);musicAudio.loop=true;musicAudio.volume=.48;musicAudio.addEventListener('ended',()=>{if(musicAudio.loop)return;});if(autoplay)musicAudio.play().then(()=>{musicPlaying=true;$('#dockPlay').textContent='Ⅱ';}).catch(()=>showEntryAudio());}
+function loadMusic(autoplay=false){const t=getTrack(); if(musicAudio){musicAudio.pause();musicAudio=null;} $('#dockTitle').textContent=t.title;$('#dockMeta').textContent=`${t.type} · ${t.license}`;renderTracks();musicAudio=new Audio(t.src);musicAudio.loop=true;musicAudio.volume=.52;if(autoplay)musicAudio.play().then(()=>{musicPlaying=true;$('#dockPlay').textContent='Ⅱ';}).catch(()=>showEntryAudio());}
 function startMusic(){if(!state.sound){return;}loadMusic(true);}
 function showEntryAudio(){$('#entryAudio').classList.add('is-visible');}
-$('#enterWithMusic').addEventListener('click',()=>{$('#entryAudio').classList.remove('is-visible');if(!getTrack().src){startSynth();}else if(musicAudio)musicAudio.play().then(()=>{musicPlaying=true;$('#dockPlay').textContent='Ⅱ';});});
-$('#dockPlay').addEventListener('click',()=>{if(!getTrack().src){if(musicPlaying){stopSynth();musicPlaying=false;$('#dockPlay').textContent='▶';}else startSynth();return;}if(!musicAudio)loadMusic();if(musicPlaying){musicAudio.pause();musicPlaying=false;$('#dockPlay').textContent='▶';}else{musicAudio.play().then(()=>{musicPlaying=true;$('#dockPlay').textContent='Ⅱ';}).catch(showEntryAudio);}});
+$('#enterWithMusic').addEventListener('click',()=>{$('#entryAudio').classList.remove('is-visible');if(musicAudio)musicAudio.play().then(()=>{musicPlaying=true;$('#dockPlay').textContent='Ⅱ';}).catch(showEntryAudio);});
+$('#dockPlay').addEventListener('click',()=>{if(!musicAudio)loadMusic();if(musicPlaying){musicAudio.pause();musicPlaying=false;$('#dockPlay').textContent='▶';}else{musicAudio.play().then(()=>{musicPlaying=true;$('#dockPlay').textContent='Ⅱ';}).catch(showEntryAudio);}});
 $('#dockNext').addEventListener('click',()=>{musicIndex=(musicIndex+1)%musicTracks.length;loadMusic(true);});
 $('#dockList').addEventListener('click',()=>document.querySelector('#musicRoom')?.scrollIntoView({behavior:'smooth'}));
 renderTracks();loadMusic(false);if(!savedDevice)showEntryAudio();
