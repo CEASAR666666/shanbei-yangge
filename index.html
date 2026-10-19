@@ -8,7 +8,42 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;600;700;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=20261019docs" />
+  <style>
+    /* 高校美育版：三重基因 + 王家沟田野板块样式 */
+    .gene-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .gene-card{border:1px solid #e8ded4;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 12px 30px rgba(120,60,40,.06)}
+    .gene-problem{padding:20px 22px;background:#f6f1ea}
+    .gene-problem b{color:#8a7a6d;font-family:var(--serif)}
+    .gene-problem p{margin:7px 0 0;font-size:13px;color:#6f5d52;line-height:1.75}
+    .gene-arrow{text-align:center;color:#c0563a;font-size:18px;line-height:1;padding:10px 0}
+    .gene-answer{padding:20px 22px;background:#a52b2b;color:#fff}
+    .gene-answer b{font-family:var(--serif);font-size:16px}
+    .gene-answer p{margin:7px 0 0;font-size:13px;line-height:1.8;color:rgba(255,255,255,.9)}
+    .gene-foot{margin-top:16px;color:#9c7b68;font-size:10px;line-height:1.8}
+    .field-line{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
+    .field-line article{padding:24px 22px;border-radius:12px;background:#fff;border:1px solid #e8ded4}
+    .field-line article span{font-size:11px;color:#b08a52;font-weight:700;letter-spacing:.12em}
+    .field-line article b{display:block;margin:8px 0 10px;font-family:var(--serif);font-size:17px;color:#761f2a}
+    .field-line article p{font-size:13px;line-height:1.8;color:#5d4d44;margin:0}
+    .field-line article em{font-style:normal;color:#a52b2b;font-weight:700}
+    .field-photos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px}
+    .field-slot{min-height:150px;border:1.5px dashed #d8b59a;border-radius:12px;display:flex;flex-direction:column;gap:6px;align-items:center;justify-content:center;text-align:center;padding:22px;color:#a3836c;background:rgba(255,255,255,.55)}
+    .field-slot b{color:#8d6a52;font-family:var(--serif)}
+    .field-slot small{font-size:11px;line-height:1.7}
+    .field-foot{margin-top:14px;color:#9c7b68;font-size:10px;line-height:1.8}
+    .county-meiyu{padding:10px 13px;border-radius:9px;background:#fbf0e6;color:#8d282e;font-size:12px;font-weight:600;line-height:1.6}
+    .county-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .gene-img{height:168px;background-size:cover;background-position:center;border-bottom:1px solid #efe3d6}
+    .field-banner{margin-top:8px;border-radius:14px;overflow:hidden;border:1px solid #e8ded4}
+    .field-banner img{display:block;width:100%;height:auto}
+    .field-banner figcaption{padding:9px 14px;font-size:10px;color:#9c7b68;background:#fff;line-height:1.6}
+    .field-fig{border-radius:12px;overflow:hidden;border:1px solid #e8ded4;background:#fff}
+    .field-fig img{display:block;width:100%;height:190px;object-fit:cover}
+    .field-fig figcaption{padding:9px 12px;font-size:10px;color:#9c7b68;line-height:1.6}
+    .field-fig figcaption b{color:#8d6a52;font-family:var(--serif)}
+    @media(max-width:900px){.gene-grid,.field-line,.field-photos{grid-template-columns:1fr}}
+  </style>
 </head>
 <body>
   <div class="device-gate" id="deviceGate" aria-modal="true" role="dialog">
@@ -23,13 +58,15 @@
   <header class="topbar">
     <a class="brand" href="#home" data-nav="home" aria-label="回到首页">
       <span class="brand-mark">秧</span>
-      <span><b>红绸入陕北</b><small>非遗秧歌数字图鉴 · 初版</small></span>
+      <span><b>红绸入陕北</b><small>高校非遗美育数字平台 · 初版</small></span>
     </a>
     <nav class="nav" aria-label="主导航">
       <a href="#home" data-nav="home">首页</a>
+      <a href="#genes" data-nav="genes">美育基因</a>
       <a href="#legacy" data-nav="legacy">传承人</a>
       <a href="#compare" data-nav="compare">秧歌对比</a>
       <a href="#atlas" data-nav="atlas">地方图鉴</a>
+      <a href="#doc-gallery" data-nav="doc-gallery">资料图鉴</a>
     </nav>
     <div class="top-actions">
       <button class="icon-btn" id="soundToggle" type="button" aria-pressed="true" title="开关音效">◒ <span>音效</span></button>
@@ -46,20 +83,20 @@
         <div class="hero-copy">
           <p class="kicker light">NORTHERN SHAANXI · YANGGE</p>
           <h1>一条红绸，<br><em>扭出黄土高原的春天</em></h1>
-          <p class="hero-lead">陕北秧歌在鼓点、唢呐与脚步之间传递喜庆。沿着绥德、米脂、定边三地，认识一项仍在村落与舞台上生长的民间舞蹈。</p>
+          <p class="hero-lead">陕北秧歌是国家级非物质文化遗产。沿着绥德、米脂、定边三地，看见它怎样以扭、摆、踢、跳的身体律动、队形协作与礼乐民俗走进高校美育课堂——让学生用身体亲历、在集体中共鸣、从本土文化扎根。</p>
           <div class="hero-ctas">
-            <a class="btn btn-gold" href="#atlas" data-nav="atlas">从三县开始逛 <span>→</span></a>
+            <a class="btn btn-gold" href="#atlas" data-nav="atlas">从四县开始逛 <span>→</span></a>
             <button class="btn btn-ghost" id="todayBtn" type="button">今日秧歌一赏 <span>✦</span></button>
           </div>
           <div class="hero-stats">
-            <div><strong>3</strong><span>榆林县域</span></div>
-            <div><strong>4</strong><span>互动入口</span></div>
+            <div><strong>3</strong><span>重美育基因</span></div>
+            <div><strong>4</strong><span>个县域流派</span></div>
             <div><strong>1</strong><span>条红绸线索</span></div>
           </div>
         </div>
         <aside class="hero-note">
           <span class="note-index">01 / 04</span>
-          <p>“扭、摆、走、跳”是秧歌最有辨识度的身体语汇。不同地区因队形、道具与伴奏，长出不同性格。</p>
+          <p>“扭、摆、踢、跳”是秧歌最有辨识度的身体语汇。不同地区因队形、道具与伴奏，长出不同性格。</p>
           <a href="#compare" data-nav="compare">去看三种秧歌怎么不同 ↗</a>
         </aside>
       </div>
@@ -73,10 +110,41 @@
           <h2>先听见鼓点，<br>再看见秧歌。</h2>
         </div>
         <div class="intro-text">
-          <p class="lead">秧歌不是“摆给人看”的一套动作，而是一种集体参与的节庆秩序。</p>
-          <p>在陕北，秧歌队常在春节、元宵等节日走街串村，鼓乐先行，舞者随队形穿行。今天的传承既有乡村社火，也有专业院团、校园社团与文旅展演。这个初版网页把资料、人物和互动放在同一张地图上，方便继续补充地方馆校的一手内容。</p>
-          <div class="source-line"><span>资料口径</span>中国非物质文化遗产网 · 陕西省文化和旅游厅公开资料 · Wikimedia Commons 实拍授权</div>
+          <p class="lead">秧歌不是“摆给人看”的一套动作，而是一种集体参与的节庆秩序——这恰好回应了今天高校美育缺的三样东西。</p>
+          <p>《关于全面加强和改进新时代学校美育工作的意见》把美育提到前所未有的高度，但实施中仍常见重知识轻体验、重个体轻协作、本土根脉不足；与此同时，作为国家级非物质文化遗产的陕北秧歌，也面临传承人老龄化、受众断层与传播场域萎缩。沿着绥德、米脂、定边三地，这个平台把流派资源、身体教学与田野记录放在同一张地图上，服务学生课前预习、课后复习与自主练习——美育为秧歌找到青年，秧歌为美育补上身体、集体与文化。</p>
+          <div class="source-line"><span>资料口径</span>中国非物质文化遗产网 · 陕西省文化和旅游厅公开资料 · 《关于全面加强和改进新时代学校美育工作的意见》 · Wikimedia Commons 实拍授权</div>
         </div>
+      </div>
+    </section>
+
+    <section class="genes section-pad" id="genes">
+      <div class="container">
+        <div class="section-head"><div>
+          <p class="kicker">WHY YANGGE, WHY MEIYU</p>
+          <h2>美育缺的三样，<br>秧歌恰好都有</h2>
+        </div><span class="section-note">研究第二、四章 · 三重对应框架</span></div>
+        <p class="lead" style="max-width:780px;margin:-14px 0 28px">当代高校美育存在身体缺席、集体消解、文化无根三重困境；陕北秧歌的身体、集体、文化三重基因，与三者一一对应、精准咬合。</p>
+        <div class="gene-grid">
+          <article class="gene-card">
+            <div class="gene-img" role="img" aria-label="红绸舞者扭动身韵" style="background-image:url('assets/img/gene-body.jpg')"></div>
+            <div class="gene-problem"><b>身体缺席</b><p>审美被压缩成“看”与“听”，学生是静坐的观看者，身体在场被边缘化。</p></div>
+            <div class="gene-arrow">↓</div>
+            <div class="gene-answer"><b>身体基因 ｜ 扭 · 摆 · 踢 · 跳</b><p>全身协调的动态语汇，让审美从观看变为亲历，在律动中重新唤醒感官。</p></div>
+          </article>
+          <article class="gene-card">
+            <div class="gene-img" role="img" aria-label="秧歌队圆形走阵" style="background-image:url('assets/img/gene-collective.jpg')"></div>
+            <div class="gene-problem"><b>集体消解</b><p>美育变成各自面对屏幕的私人消费，协作、呼应与共同创造消失了。</p></div>
+            <div class="gene-arrow">↓</div>
+            <div class="gene-answer"><b>集体基因 ｜ 队形 · 鼓乐 · 集体即兴</b><p>个体动作只有嵌入集体节奏与队形才有意义，在协作呼应中重建社群联结。</p></div>
+          </article>
+          <article class="gene-card">
+            <div class="gene-img" role="img" aria-label="伞头与九曲灯阵" style="background-image:url('assets/img/gene-culture.jpg')"></div>
+            <div class="gene-problem"><b>文化无根</b><p>以外来审美范式为参照，学生对本土礼乐、岁时民俗与生活美学日益陌生。</p></div>
+            <div class="gene-arrow">↓</div>
+            <div class="gene-answer"><b>文化基因 ｜ 礼乐 · 岁时 · 地方记忆</b><p>动作程式、角色设置与仪式功能背后是一整套地方价值体系，用身体接续文化根脉。</p></div>
+          </article>
+        </div>
+        <p class="gene-foot">这一对应不是内容嫁接，而是教育逻辑的同构（研究第三章）。本站内容也沿此主线组织：动作卡与地方图鉴对应身体与流派，音乐房、走阵与集体互动对应协作，年俗时间轴与王家沟田野对应文化根脉。</p>
       </div>
     </section>
 
@@ -84,7 +152,7 @@
       <div class="container">
         <div class="section-head"><div><p class="kicker">A SHORT HISTORY OF MOVEMENT</p><h2>从社火到舞台，<br>秧歌一直在“走”</h2></div><span class="section-note">滚动时间轴 · 公开资料梳理</span></div>
         <div class="history-line"><article><span>01</span><b>年俗里的队伍</b><p>春节、元宵等节庆里，秧歌常以队伍巡游的方式进入村落与街巷。</p></article><article><span>02</span><b>鼓乐搭起秩序</b><p>鼓、锣、镲和唢呐让行进、对舞和变阵拥有清晰的节拍。</p></article><article><span>03</span><b>从村口到剧场</b><p>今天的陕北秧歌既在社火活动中延续，也进入院团、校园和公共文化空间。</p></article><article><span>04</span><b>把动作交给下一代</b><p>传承不只记录“谁跳得好”，还记录谁愿意教、谁愿意学、谁愿意一起跳。</p></article></div>
-        <div class="movement-lab"><div class="lab-intro"><p class="kicker">MOVE WITH THE BEAT</p><h3>四步学会秧歌动势</h3><p>点击卡片，秧小北会用动作演示关键词。动作示意用于学习入口，正式教学请以老师现场指导为准。</p></div><div class="move-cards"><button data-move="扭" type="button"><i>〰</i><b>扭</b><small>腰胯带动上身</small></button><button data-move="摆" type="button"><i>⌁</i><b>摆</b><small>手腕放大轨迹</small></button><button data-move="走" type="button"><i>⇢</i><b>走</b><small>队形向前展开</small></button><button data-move="跳" type="button"><i>✦</i><b>跳</b><small>鼓点推高情绪</small></button></div></div>
+        <div class="movement-lab"><div class="lab-intro"><p class="kicker">MOVE WITH THE BEAT</p><h3>四步学会秧歌动势</h3><p>点击卡片，秧小北会用动作演示关键词。</p></div><div class="move-cards"><button data-move="扭" type="button"><i>〰</i><b>扭</b><small>腰胯带动上身</small></button><button data-move="摆" type="button"><i>⌁</i><b>摆</b><small>手腕放大轨迹</small></button><button data-move="踢" type="button"><i>⤴</i><b>踢</b><small>踢腿踏出脆劲</small></button><button data-move="跳" type="button"><i>✦</i><b>跳</b><small>鼓点推高情绪</small></button></div></div>
       </div>
     </section>
 
@@ -103,23 +171,23 @@
           <a href="#legacy-detail" class="text-link">查看人物档案 ↗</a>
         </div>
         <div class="people-row">
-          <article class="person-card featured-person" data-person="贺俊义">
+          <article class="person-card featured-person" data-person="绥德秧歌传习者">
             <div class="person-image person-one"></div>
-            <div class="person-meta"><span class="tag red">绥德 · 资料人物</span><button class="follow" type="button" aria-label="关注贺俊义">♡</button></div>
-            <h3>贺俊义</h3><p>资料记载：南路二人场子包头艺人</p>
+            <div class="person-meta"><span class="tag red">陕北秧歌</span><button class="follow" type="button" aria-label="关注绥德秧歌传习者">♡</button></div>
+            <h3>绥德秧歌传习者</h3><p>绥德秧歌 · 伞头与鼓乐记忆</p>
             <div class="card-arrow">进入人物档案 <span>↗</span></div>
           </article>
-          <article class="person-card" data-person="魏建明">
+          <article class="person-card" data-person="米脂秧歌队">
             <div class="person-image person-two"></div>
-            <div class="person-meta"><span class="tag gold">绥德 · 资料人物</span><button class="follow" type="button" aria-label="关注魏建明">♡</button></div>
-            <h3>魏建明</h3><p>资料记载：秧歌传习与培训</p>
-            <div class="card-arrow">查看资料卡 <span>↗</span></div>
+            <div class="person-meta"><span class="tag gold">米脂</span><button class="follow" type="button" aria-label="关注米脂秧歌队">♡</button></div>
+            <h3>米脂秧歌队</h3><p>鼓乐、彩扇与村落巡游</p>
+            <div class="card-arrow">查看队伍 <span>↗</span></div>
           </article>
-          <article class="person-card" data-person="冯建忠">
+          <article class="person-card" data-person="定边社火班">
             <div class="person-image person-three"></div>
-            <div class="person-meta"><span class="tag ink">定边 · 资料人物</span><button class="follow" type="button" aria-label="关注冯建忠">♡</button></div>
-            <h3>冯建忠</h3><p>资料记载：定边霸王鞭带头人</p>
-            <div class="card-arrow">查看资料卡 <span>↗</span></div>
+            <div class="person-meta"><span class="tag ink">定边</span><button class="follow" type="button" aria-label="关注定边社火班">♡</button></div>
+            <h3>定边社火班</h3><p>边地节庆里的秧歌与社火</p>
+            <div class="card-arrow">查看队伍 <span>↗</span></div>
           </article>
         </div>
       </div>
@@ -159,59 +227,73 @@
 
     <section class="atlas section-pad" id="atlas">
       <div class="container">
-        <div class="section-head"><div><p class="kicker">YULIN FIELD NOTES</p><h2>榆林三县 · 一张地图读出不同性格</h2></div><button class="text-link" id="markAll" type="button">点亮全部县域 ↗</button></div>
+        <div class="section-head"><div><p class="kicker">YULIN FIELD NOTES</p><h2>榆林四县 · 一张地图读出不同性格</h2></div><button class="text-link" id="markAll" type="button">点亮全部县域 ↗</button></div>
         <div class="atlas-layout">
           <div class="map-card">
             <div class="map-lines"></div>
-            <div class="map-label yulin">榆林</div><div class="map-feature-badge">地方特色秧歌</div><button class="map-pin pin-sd" data-county="suid" type="button" aria-label="查看绥德地方特色秧歌"><i></i><span>绥德</span><em>两路秧歌</em></button><button class="map-pin pin-mz" data-county="mizhi" type="button" aria-label="查看米脂地方特色秧歌"><i></i><span>米脂</span></button><button class="map-pin pin-db" data-county="dingbian" type="button" aria-label="查看定边地方特色秧歌"><i></i><span>定边</span><em>霸王鞭</em></button>
+            <div class="map-label yulin">榆林</div><div class="map-feature-badge">地方特色秧歌 · 资料补充</div><button class="map-pin pin-sd" data-county="suid" type="button"><i></i><span>绥德</span><em>两路秧歌</em></button><button class="map-pin pin-mz" data-county="mizhi" type="button"><i></i><span>米脂</span><em>大秧歌</em></button><button class="map-pin pin-db" data-county="dingbian" type="button"><i></i><span>定边</span><em>霸王鞭</em></button><button class="map-pin pin-jb" data-county="jingbian" type="button"><i></i><span>靖边</span><em>跑驴</em></button>
             <div class="map-legend"><span><i class="pin-dot active"></i>已点亮</span><span><i class="pin-dot"></i>未点亮</span></div>
           </div>
           <div class="county-panel" id="countyPanel">
-            <div class="county-kicker"><span id="countyNo">01</span><span id="countyTag">陕北东南 · 河谷</span></div>
+            <div class="county-kicker"><span id="countyNo">01</span><span id="countyTag">陕北东南 · 河谷</span><span id="countyCase" class="tag red" style="display:none;margin-left:8px"></span></div>
             <h3 id="countyName">绥德</h3><p id="countyIntro">绥德是陕北秧歌的重要传播地之一。县城与乡村的节庆秧歌，常见鼓乐开道、队伍巡游和伞头领队等组织方式。</p>
-            <div class="county-grid"><div><span>看什么</span><b id="countyLook">队形与伞头</b></div><div><span>听什么</span><b id="countyHear">鼓点与唢呐</b></div><div><span>带什么</span><b id="countyCarry">彩扇、红绸</b></div></div><div class="county-detail"><span>地方特色秧歌</span><p id="countyDetail">北路文场子与南路武场子并存，分别呈现细腻灵动与刚劲外放的风格。</p></div>
-            <button class="btn btn-outline" id="lightCounty" type="button">点亮绥德 <span>✦</span></button>
-          </div>
-        </div>
-        <div class="regional-yangge" id="regionalYangge">
-          <div class="regional-head"><div><p class="kicker">LOCAL YANGGE · 地方特色秧歌</p><h3>把地图上的两个地方，跳出自己的性格</h3></div><span>绥德 / 定边 · 新增资料板块</span></div>
-          <div class="regional-grid">
-            <article class="regional-card regional-sd">
-              <div class="regional-card-top"><span class="regional-place">绥德</span><span class="tag red">两大流派</span></div>
-              <h4>北路文场子 · 南路武场子</h4>
-              <p>北路以二人场子为核心，身法细腻、节奏流畅；南路动作大开大合，重拍突出，适合广场巡游和闹红火。</p>
-              <div class="regional-facts"><span><b>北路</b>闪、颠、柔、俏</span><span><b>南路</b>弓步、踢腿、跳跃</span><span><b>场景</b>近距离小场 / 大场巡游</span></div>
-              <button class="regional-link" data-regional="suid" type="button">在地图上查看绥德 ↗</button>
-              <small class="regional-source">资料依据：所附《绥德秧歌资料》；实名与流派细节建议上线前由地方馆校核验。</small>
-            </article>
-            <article class="regional-card regional-db">
-              <div class="regional-card-top"><span class="regional-place">定边</span><span class="tag gold">浑身响</span></div>
-              <h4>霸王鞭 · 百人方阵 · 旱船社火</h4>
-              <p>定边霸王鞭以鞭身击打和铜铃声见长，鼓点铿锵、动作有力；社火队伍还常配合旱船、说书、秦腔和皮影等节目。</p>
-              <div class="regional-facts"><span><b>动作</b>击肩、击臂、击腰、击腿</span><span><b>节奏</b>铜铃与锣鼓交织</span><span><b>场景</b>定点行进 / 方阵变换</span></div>
-              <button class="regional-link" data-regional="dingbian" type="button">在地图上查看定边 ↗</button>
-              <small class="regional-source">资料依据：所附《定边社火》；人物与历史说法建议上线前由地方馆校核验。</small>
-            </article>
+            <div class="county-meiyu" id="countyMeiyu" style="margin-top:12px"></div>
+            <div class="county-grid"><div><span>看什么</span><b id="countyLook">队形与伞头</b></div><div><span>听什么</span><b id="countyHear">鼓点与唢呐</b></div><div><span>带什么</span><b id="countyCarry">彩扇、红绸</b></div></div>
+            <div class="county-actions"><button class="btn btn-outline" id="lightCounty" type="button">点亮绥德 <span>✦</span></button><button class="btn btn-soft" id="countyDetailBtn" type="button">风格档案 <span>↗</span></button></div>
           </div>
         </div>
         <div class="artifact-grid">
           <article class="artifact"><img src="assets/chinese-drum.jpg" alt="中国鼓乐器实拍" /><div><span class="tag red">道具图鉴 · 01</span><h3>腰鼓</h3><p>鼓是秧歌队的节奏骨架；鼓点速度、力度与队形变化相互呼应。</p><button class="artifact-btn" data-artifact="腰鼓" type="button">点一下听鼓点 <span>↗</span></button></div></article>
-          <article class="artifact"><img src="assets/shandong-yangko.jpg" alt="中国新年秧歌表演实拍" /><div><span class="tag gold">道具图鉴 · 02</span><h3>彩扇与红绸</h3><p>扇、绸把手腕的轨迹放大，让“扭”和“摆”在远处也能被看见。</p><button class="artifact-btn" data-artifact="彩扇" type="button">展开介绍 <span>↗</span></button></div></article>
+          <article class="artifact"><img src="assets/shandong-yangko.jpg" alt="秧歌表演中的彩扇参照图（Wikimedia 授权）" /><div><span class="tag gold">道具图鉴 · 02</span><h3>彩扇与红绸</h3><p>扇、绸把手腕的轨迹放大，让“扭”和“摆”在远处也能被看见。</p><button class="artifact-btn" data-artifact="彩扇" type="button">展开介绍 <span>↗</span></button></div></article>
         </div>
+      </div>
+    </section>
+
+    <section class="doc-gallery section-pad" id="doc-gallery">
+      <div class="container">
+        <div class="section-head"><div><p class="kicker">ATTACHED FIELD MATERIALS</p><h2>四县资料图鉴 · 把现场带进网页</h2></div><span class="section-note">所附 Word 图片 · 原图展示</span></div>
+        <p class="lead doc-gallery-lead">以下图片均来自本次提供的《绥德秧歌资料》《定边社火》《米脂相关资料》《靖边》文档，按县域归档展示。图片版权与公开使用范围仍需向原提供方或地方馆校确认。</p>
+        <div class="doc-groups">
+          <article class="doc-group"><div class="doc-group-head"><span class="tag red">绥德</span><h3>两路秧歌 · 文武场子</h3><p>北路文场子的细腻与南路武场子的刚劲，构成绥德秧歌的地方辨识度。</p></div><div class="doc-photo-grid"><figure><img src="assets/img/doc-suid/image1.jpeg" alt="绥德秧歌资料图片 1"><figcaption>绥德资料图片 01</figcaption></figure><figure><img src="assets/img/doc-suid/image2.jpeg" alt="绥德秧歌资料图片 2"><figcaption>绥德资料图片 02</figcaption></figure><figure><img src="assets/img/doc-suid/image3.png" alt="绥德秧歌资料图片 3"><figcaption>绥德资料图片 03</figcaption></figure><figure><img src="assets/img/doc-suid/image4.jpeg" alt="绥德秧歌资料图片 4"><figcaption>绥德资料图片 04</figcaption></figure><figure><img src="assets/img/doc-suid/image5.jpeg" alt="绥德秧歌资料图片 5"><figcaption>绥德资料图片 05</figcaption></figure><figure><img src="assets/img/doc-suid/image6.jpeg" alt="绥德秧歌资料图片 6"><figcaption>绥德资料图片 06</figcaption></figure><figure><img src="assets/img/doc-suid/image7.jpeg" alt="绥德秧歌资料图片 7"><figcaption>绥德资料图片 07</figcaption></figure><figure><img src="assets/img/doc-suid/image8.png" alt="绥德秧歌资料图片 8"><figcaption>绥德资料图片 08</figcaption></figure></div><small class="doc-source">来源：用户提供《绥德秧歌资料(1)(1).docx》；待授权确认。</small></article>
+          <article class="doc-group"><div class="doc-group-head"><span class="tag gold">米脂</span><h3>伞头领阵 · 三队协同</h3><p>米脂资料记录十字步、踢场子、伞头领唱与路鼓、流水鼓等内容。</p></div><div class="doc-photo-grid"><figure><img src="assets/img/doc-mizhi/image1.jpeg" alt="米脂秧歌资料图片 1"><figcaption>米脂资料图片 01</figcaption></figure><figure><img src="assets/img/doc-mizhi/image2.jpeg" alt="米脂秧歌资料图片 2"><figcaption>米脂资料图片 02</figcaption></figure><figure><img src="assets/img/doc-mizhi/image3.jpeg" alt="米脂秧歌资料图片 3"><figcaption>米脂资料图片 03</figcaption></figure><figure><img src="assets/img/doc-mizhi/image4.jpeg" alt="米脂秧歌资料图片 4"><figcaption>米脂资料图片 04</figcaption></figure><figure><img src="assets/img/doc-mizhi/image5.jpeg" alt="米脂秧歌资料图片 5"><figcaption>米脂资料图片 05</figcaption></figure></div><small class="doc-source">来源：用户提供《米脂相关资料(1).docx》；待授权确认。</small></article>
+          <article class="doc-group"><div class="doc-group-head"><span class="tag ink">定边</span><h3>霸王鞭 · 社火诸艺同台</h3><p>“浑身响”以鞭身击打、铜铃和锣鼓交织见长，也与旱船、秦腔、皮影等共同构成年俗场景。</p></div><div class="doc-photo-grid"><figure><img src="assets/img/doc-dingbian/image1.jpeg" alt="定边社火资料图片 1"><figcaption>定边资料图片 01</figcaption></figure><figure><img src="assets/img/doc-dingbian/image2.jpeg" alt="定边社火资料图片 2"><figcaption>定边资料图片 02</figcaption></figure><figure><img src="assets/img/doc-dingbian/image3.jpeg" alt="定边社火资料图片 3"><figcaption>定边资料图片 03</figcaption></figure><figure><img src="assets/img/doc-dingbian/image4.jpeg" alt="定边社火资料图片 4"><figcaption>定边资料图片 04</figcaption></figure><figure><img src="assets/img/doc-dingbian/image5.jpeg" alt="定边社火资料图片 5"><figcaption>定边资料图片 05</figcaption></figure><figure><img src="assets/img/doc-dingbian/image6.jpeg" alt="定边社火资料图片 6"><figcaption>定边资料图片 06</figcaption></figure><figure><img src="assets/img/doc-dingbian/image7.jpeg" alt="定边社火资料图片 7"><figcaption>定边资料图片 07</figcaption></figure><figure><img src="assets/img/doc-dingbian/image8.jpeg" alt="定边社火资料图片 8"><figcaption>定边资料图片 08</figcaption></figure></div><small class="doc-source">来源：用户提供《定边社火(1)(1).docx》；待授权确认。</small></article>
+          <article class="doc-group"><div class="doc-group-head"><span class="tag red">靖边</span><h3>跑驴 · 两派基本功</h3><p>资料介绍滚沙驴与大善驴两派，以及闪腰、揉肩、抖身、摇头等基本功。</p></div><div class="doc-photo-grid"><figure><img src="assets/img/doc-jingbian/image1.png" alt="靖边跑驴资料图片 1"><figcaption>靖边资料图片 01</figcaption></figure><figure><img src="assets/img/doc-jingbian/image2.png" alt="靖边跑驴资料图片 2"><figcaption>靖边资料图片 02</figcaption></figure></div><small class="doc-source">来源：用户提供《靖边(1).docx》；资料称靖边跑驴为国家级非遗，具体名录信息请以官方名录为准。</small></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="field section-pad" id="field">
+      <div class="container">
+        <div class="section-head"><div>
+          <p class="kicker">FIELDWORK · WANGJIAGOU, TEN YEARS</p>
+          <h2>王家沟十年：<br>一支秧歌队怎样迎来大学生</h2>
+        </div><span class="section-note">榆林 · 田野追踪 · 研究 5.4</span></div>
+        <p class="lead" style="max-width:800px">对榆林王家沟村近十年秧歌形态变化的田野追踪显示：秧歌始终处于动态演变之中。大学生与高校介入之后，传承在三个维度上同时发生变化——</p>
+        <figure class="field-banner"><img src="assets/img/field-banner.jpg" alt="黄土高原村落过街秧歌行进队伍" /><figcaption>过街秧歌：年节里沿村起场、入户拜年的行进队伍</figcaption></figure>
+        <div class="field-line">
+          <article><span>01 · 传承主体</span><b>老龄村民 → 青年学生</b><p>大学生加入秧歌队，传承群体由老龄村民扩展到青年学生，受众断层出现新的接续通道。</p></article>
+          <article><span>02 · 表演场域</span><b>乡土仪式 → 校园课堂</b><p>表演场域由年俗社火现场，扩展到校园课堂与公共文化空间，秧歌获得新的观众与舞台。</p></article>
+          <article><span>03 · 传播方式</span><b>口传身授 → 系统教学</b><p>传承方式由手把手的口传身授，扩展为分解教学、课程实施与数字平台沉淀。</p></article>
+        </div>
+        <div class="field-photos">
+          <figure class="field-fig"><img src="assets/img/field-teaching.jpg" alt="老艺人向青年学生传艺" /><figcaption><b>传艺场景</b>｜高校学生入村跟学，老艺人手把手校正身段</figcaption></figure>
+          <figure class="field-fig"><img src="assets/img/field-interview.jpg" alt="学生访谈记录老艺人" /><figcaption><b>访谈记录</b>｜传承人口述采集与十年变迁追踪</figcaption></figure>
+        </div>
+        <p class="field-foot">本版文字依据研究田野记录（论文 5.4）整理。</p>
       </div>
     </section>
 
     <section class="legacy-detail section-pad" id="legacy-detail">
       <div class="container detail-grid">
         <div class="detail-photo"><div class="detail-stamp">人物档案<br><b>01</b></div></div>
-        <div class="detail-copy"><p class="kicker">PORTRAIT · 传承人档案</p><h2>把村口的鼓点，<br>教给放学后的孩子</h2><p class="lead">人物卡已接入所附资料中的绥德、定边实名信息，页面先呈现其传习线索，具体资格、时间与传承谱系以官方名录和地方馆校审核为准。</p><div class="timeline"><div><span>01</span><p><b>学艺</b><small>从村社火班学会基本鼓点与走阵</small></p></div><div><span>02</span><p><b>入队</b><small>参与春节、元宵等节庆秧歌活动</small></p></div><div><span>03</span><p><b>传习</b><small>在校园与社区开设体验式秧歌课程</small></p></div></div><div class="detail-actions"><button class="btn btn-red" id="tributeBtn" type="button">向传承人致敬 <span>♡</span></button><button class="btn btn-soft" id="commentBtn" type="button">写一句祝福</button></div><div class="detail-foot">资料依据：所附《绥德秧歌资料》《定边社火》；实名内容上线前请由地方馆校核验。</div></div>
+        <div class="detail-copy"><p class="kicker">PORTRAIT · 传承人档案</p><h2>把村口的鼓点，<br>教给放学后的孩子</h2><p class="lead">以“口述史 + 时间线”呈现一位陕北秧歌传承人的学艺与传习人生。</p><div class="timeline"><div><span>01</span><p><b>学艺</b><small>从村社火班学会基本鼓点与走阵</small></p></div><div><span>02</span><p><b>入队</b><small>参与春节、元宵等节庆秧歌活动</small></p></div><div><span>03</span><p><b>传习</b><small>在校园与社区开设体验式秧歌课程</small></p></div></div><div class="detail-actions"><button class="btn btn-red" id="tributeBtn" type="button">向传承人致敬 <span>♡</span></button><button class="btn btn-soft" id="commentBtn" type="button">写一句祝福</button></div></div>
       </div>
     </section>
 
-    <section class="sources section-pad" id="sources"><div class="container"><div class="sources-head"><div><p class="kicker">READ THE SOURCES</p><h2>资料来源与使用说明</h2></div><span class="source-count">本版 06 组公开来源</span></div><div class="source-grid"><a href="https://www.ihchina.cn/" target="_blank" rel="noreferrer"><b>中国非物质文化遗产网</b><span>项目与名录检索入口 ↗</span></a><a href="https://wlt.shaanxi.gov.cn/" target="_blank" rel="noreferrer"><b>陕西省文化和旅游厅</b><span>地方文化公开信息 ↗</span></a><a href="https://commons.wikimedia.org/wiki/File:Waist_drums_in_Ansai.jpg" target="_blank" rel="noreferrer"><b>Wikimedia · Waist drums in Ansai</b><span>实拍图 · CC BY-SA 4.0 ↗</span></a><a href="https://commons.wikimedia.org/wiki/File:2018_Chinese_New_Year.jpg" target="_blank" rel="noreferrer"><b>Wikimedia · 2018 Chinese New Year</b><span>山东舞蹈团秧歌实拍 · CC BY-SA 4.0 ↗</span></a><a href="https://commons.wikimedia.org/wiki/File:A_musical_ensemble_for_Yangge,_People%27s_Square_Songyuan.jpg" target="_blank" rel="noreferrer"><b>Wikimedia · Songyuan Yangge ensemble</b><span>秧歌乐队实拍与授权说明 ↗</span></a><a href="https://commons.wikimedia.org/wiki/File:Chinese_Drum_(photo_by_Garry_Knight).jpg" target="_blank" rel="noreferrer"><b>Wikimedia · Chinese Drum</b><span>鼓乐器实拍与授权说明 ↗</span></a></div><p class="disclaimer">页面中的“绥德、米脂、定边”段落是基于公开地方文化语境的初版信息架构示例，未替代地方志或馆校审核；上线前建议补充县志、非遗名录、传承人访谈与授权图片。</p></div></section>
+    <section class="sources section-pad" id="sources"><div class="container"><div class="sources-head"><div><p class="kicker">READ THE SOURCES</p><h2>资料来源与使用说明</h2></div><span class="source-count">本版 12 组公开来源</span></div><div class="source-grid"><a href="https://www.gov.cn/zhengce/2020-10/15/content_5551609.htm" target="_blank" rel="noreferrer"><b>《关于全面加强和改进新时代学校美育工作的意见》</b><span>中共中央办公厅 国务院办公厅 · 中国政府网 ↗</span></a><a href="https://www.ihchina.cn/project_details/12817" target="_blank" rel="noreferrer"><b>中国非遗网 · 秧歌（陕北秧歌）</b><span>国家级名录（2006 第一批）· 申报地绥德县 ↗</span></a><a href="https://www.ihchina.cn/" target="_blank" rel="noreferrer"><b>中国非物质文化遗产网</b><span>项目与名录检索入口 ↗</span></a><a href="https://www.sxsd.gov.cn/xwzx/xzbm/202312/t20231218_544991.html" target="_blank" rel="noreferrer"><b>绥德县人民政府 · 绥德踢场子</b><span>南北路文武场子与省级名录（绥德融媒） ↗</span></a><a href="http://www.mizhi.gov.cn/whly/mswh/201404/t20140401_1234090_wap.html" target="_blank" rel="noreferrer"><b>米脂县人民政府 · 话说“米脂秧歌”</b><span>三队编制、鼓点名色与阵图特征 ↗</span></a><a href="http://www.yldsyjs.com/m/article/1220125145157" target="_blank" rel="noreferrer"><b>榆林市地方志 · 榆林风俗之游艺习俗</b><span>转引光绪《绥德州志》《米脂县志》 ↗</span></a><a href="https://www.sxlib.org.cn/dfzy/feiwuzhi/sjsp/ctwd/5/201703/t20170302_638730.html" target="_blank" rel="noreferrer"><b>陕西省非遗保护中心 · 定边霸王鞭</b><span>省级非遗历史渊源（定边县文化馆） ↗</span></a><a href="https://wlt.shaanxi.gov.cn/" target="_blank" rel="noreferrer"><b>陕西省文化和旅游厅</b><span>地方文化公开信息 ↗</span></a><a href="https://commons.wikimedia.org/wiki/File:Waist_drums_in_Ansai.jpg" target="_blank" rel="noreferrer"><b>Wikimedia · Waist drums in Ansai</b><span>实拍图 · CC BY-SA 4.0 ↗</span></a><a href="https://commons.wikimedia.org/wiki/File:2018_Chinese_New_Year.jpg" target="_blank" rel="noreferrer"><b>Wikimedia · 2018 Chinese New Year</b><span>山东舞蹈团秧歌实拍 · CC BY-SA 4.0 ↗</span></a><a href="https://commons.wikimedia.org/wiki/File:A_musical_ensemble_for_Yangge,_People%27s_Square_Songyuan.jpg" target="_blank" rel="noreferrer"><b>Wikimedia · Songyuan Yangge ensemble</b><span>秧歌乐队实拍与授权说明 ↗</span></a><a href="https://commons.wikimedia.org/wiki/File:Chinese_Drum_(photo_by_Garry_Knight).jpg" target="_blank" rel="noreferrer"><b>Wikimedia · Chinese Drum</b><span>鼓乐器实拍与授权说明 ↗</span></a></div><p class="disclaimer">三县文字已据中国非物质文化遗产网国家级名录著录（秧歌〔陕北秧歌〕，2006 年第一批，申报地绥德县）、地方志转引（光绪《绥德州志》《米脂县志》、《榆林风俗之游艺习俗》）、陕西省非物质文化遗产保护中心与三县人民政府公开资料核对。</p></div></section>
   </main>
 
-  <footer class="footer"><div class="container"><span>红绸入陕北 / 非遗秧歌数字图鉴</span><span>Prototype 01 · 2026</span></div></footer>
+  <footer class="footer"><div class="container"><span>红绸入陕北 / 高校非遗美育数字平台</span><span>Prototype 01 · 2026</span></div></footer>
   <div class="bottom-nav"><a href="#home" data-nav="home"><span>⌂</span>首页</a><a href="#legacy" data-nav="legacy"><span>◎</span>传承人</a><button class="mobile-assistant" id="mobileAssistant" type="button"><span>+</span><small>秧小北</small></button><a href="#compare" data-nav="compare"><span>◈</span>秧歌对比</a><a href="#atlas" data-nav="atlas"><span>⌖</span>地方图鉴</a></div>
 
   <div class="modal" id="modal" aria-hidden="true"><div class="modal-backdrop" data-close-modal></div><div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><button class="modal-close" data-close-modal type="button">×</button><div id="modalBody"></div></div></div>
@@ -220,6 +302,6 @@
   <button class="assistant-orb" id="assistantOrb" type="button" aria-label="打开秧小北助手"><span class="orb-face">秧</span><i class="orb-scarf"></i><small>秧小北</small></button>
   <aside class="assistant-panel" id="assistantPanel" aria-hidden="true"><div class="assistant-head"><div class="assistant-avatar"><span>秧</span></div><div><b>秧小北</b><small>你的陕北秧歌向导</small></div><button id="assistantClose" type="button">×</button></div><div class="assistant-motion" id="assistantMotion"><span class="motion-scarf"></span><span class="motion-body">秧</span></div><div class="chat-log" id="chatLog"><div class="chat-msg bot">嗨！我是秧小北。可以问我陕北秧歌、陕北年俗，也可以让我带你去页面里逛逛。</div><div class="quick-chips"><button data-ask="陕北秧歌有什么特点？" type="button">秧歌有什么特点？</button><button data-ask="带我去音乐房" type="button">带我去音乐房</button><button data-ask="打开头像工坊" type="button">制作我的头像</button></div></div><div class="chat-compose"><button id="voiceBtn" type="button" title="语音输入">◉</button><input id="chatInput" placeholder="问问秧小北…" /><button id="chatSend" type="button">发送</button></div><button class="avatar-entry" id="avatarEntry" type="button">✦ 打开本地头像工坊</button></aside>
   <div class="avatar-panel" id="avatarPanel" aria-hidden="true"><div class="avatar-backdrop" data-close-avatar></div><div class="avatar-card"><button class="modal-close" data-close-avatar type="button">×</button><p class="kicker">LOCAL AVATAR STUDIO</p><h2>把你的脸，放进陕北年画</h2><p class="avatar-note">照片只在本机处理。第一版采用本地模板合成，不上传服务器。</p><div class="avatar-workspace"><div class="avatar-preview" id="avatarPreview"><div class="template-burst"></div><div class="avatar-face-slot" id="avatarFaceSlot">上传照片</div><div class="template-costume" id="templateCostume">胖娃娃</div></div><div class="avatar-controls"><label class="upload-btn">选择照片<input type="file" id="avatarFile" accept="image/*" /></label><div class="template-grid"><button data-template="胖娃娃" type="button">喜庆胖娃娃</button><button data-template="秧歌舞者" type="button">跳秧歌</button><button data-template="腰鼓小将" type="button">腰鼓小将</button><button data-template="剪纸秧歌娃" type="button">剪纸年画</button></div><button class="btn btn-red" id="downloadAvatar" type="button">下载头像 PNG ↗</button></div></div><p class="avatar-status" id="avatarStatus">支持 FaceDetector 的浏览器会优先识别面部；否则可在预览区调整裁剪。</p></div></div>
-  <script src="app.js"></script>
+  <script src="app.js?v=20261019docs"></script>
 </body>
 </html>
